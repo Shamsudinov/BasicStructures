@@ -22,7 +22,7 @@ public:
     void push_front(const T&);
 
     type_size size() const;
-
+    void clear();
     void print() const;
 };
 
@@ -45,6 +45,8 @@ List<T>::List(type_size size,T value){
 
 template<typename T>
 List<T>::~List(){
+
+    clear();
     std::cout << "~List()" << std::endl;
 }
 
@@ -98,6 +100,19 @@ void List<T>::push_front(const T& value){
 }
 
 template<typename T>
+void List<T>::clear(){
+
+    Node<T> *curr_del;
+    curr_del = head;
+    while (list_size != 0) {
+        head = head->next;
+        delete curr_del;
+        curr_del = head;
+        list_size--;
+    }
+}
+
+template<typename T>
 void List<T>::print() const{
 
     Node<T> *current = head;
@@ -107,7 +122,7 @@ void List<T>::print() const{
         std::cout << current->value << " ";
         current = current->next;
     }
-//    std::cout << std::endl;
+    std::cout << std::endl;
 //    std::cout << "head: " << head->value << std::endl;
 //    std::cout << "head->next: " << head->next->value << std::endl;
 //    std::cout << "tail: " << tail->value << std::endl;
