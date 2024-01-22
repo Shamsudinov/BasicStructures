@@ -10,5 +10,10 @@ int main()
         l.push_back(i);
     }
     l.print();
+    for(int i=5; i<10; i++){
+        l.push_front(i);
+    }
+//    l.push_front(10);
+    l.print();
     return 0;
 }

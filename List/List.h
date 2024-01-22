@@ -64,16 +64,36 @@ void List<T>::push_back(const T& value){
     }
 
     Node<T> *new_node = new Node<T>(value);
+
+    if(list_size == 1){
+        tail = new_node;
+        tail->prev = head;
+        head->next = tail;
+        list_size++;
+        return;
+    }
+
     tail->next = new_node;
     new_node->prev = tail;
     tail = new_node;
     list_size++;
-//    delete new_node;
+
 }
 
 template<typename T>
 void List<T>::push_front(const T& value){
 
+    if(head == nullptr){
+        head = new Node<T>(value);
+        tail = head;
+        list_size++;
+        return;
+    }
+
+    Node<T> *new_node = new Node<T>(value);
+    new_node->next = head;
+    head = new_node;
+    list_size++;
 
 }
 
@@ -81,12 +101,17 @@ template<typename T>
 void List<T>::print() const{
 
     Node<T> *current = head;
+
     for(unsigned int index = 0; index < list_size; index ++){
 
         std::cout << current->value << " ";
         current = current->next;
     }
-    std::cout << std::endl;
+//    std::cout << std::endl;
+//    std::cout << "head: " << head->value << std::endl;
+//    std::cout << "head->next: " << head->next->value << std::endl;
+//    std::cout << "tail: " << tail->value << std::endl;
+//    std::cout << std::endl;
 }
 
 #endif // LIST_H
