@@ -35,7 +35,9 @@ Node<T>::Node(const T val){
 
 template<typename T>
 Node<T>::~Node(){
+
     std::cout << "~Node() -> " << value << std::endl;
+//    delete value;
 }
 
 

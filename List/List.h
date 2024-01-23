@@ -12,6 +12,7 @@ class List{
     Node<T> *head;
     Node<T> *tail;
     type_size list_size;
+    const type_size MAX_SIZE = 1000;
 public:
 
     List();
@@ -21,7 +22,11 @@ public:
     void push_back(const T&);
     void push_front(const T&);
 
+    bool remove(const T&);
+    void remove_all(const T&);
+
     type_size size() const;
+    type_size max_size() const;
     void clear();
     void print() const;
 };
@@ -40,6 +45,10 @@ List<T>::List(){
 
 template<typename T>
 List<T>::List(type_size size,T value){
+
+    for(unsigned int index = 0; index < size; index++){
+        push_back(value);
+    }
     std::cout << "List(type_size,T)" << std::endl;
 }
 
@@ -56,7 +65,16 @@ type_size List<T>::size() const{
 }
 
 template<typename T>
+type_size List<T>::max_size() const{
+    return MAX_SIZE;
+}
+
+template<typename T>
 void List<T>::push_back(const T& value){
+
+    if(list_size == MAX_SIZE){
+        return;
+    }
 
     if(head == nullptr){
         head = new Node<T>(value);
@@ -85,6 +103,10 @@ void List<T>::push_back(const T& value){
 template<typename T>
 void List<T>::push_front(const T& value){
 
+    if(list_size == MAX_SIZE){
+        return;
+    }
+
     if(head == nullptr){
         head = new Node<T>(value);
         tail = head;
@@ -97,6 +119,52 @@ void List<T>::push_front(const T& value){
     head = new_node;
     list_size++;
 
+}
+
+template<typename T>
+bool List<T>::remove(const T &val){
+
+    Node<T> *del = head;
+    bool find = false;
+    while(del != nullptr){
+
+       if(del->value == val){
+           find = true;
+           break;
+       }
+       del = del->next;
+    }
+
+    if(del == nullptr && find == false)
+        return find;
+
+    Node<T> * prevDel = del->prev;
+    Node<T> * afterDel = del->next;
+
+    if(prevDel != nullptr && list_size != 1)
+       prevDel->next = afterDel;
+
+     if(afterDel != nullptr && list_size != 1)
+       afterDel->prev = prevDel;
+
+    if(del == head)
+        head = afterDel;
+    if(del == tail)
+        tail = prevDel;
+
+    delete del;
+    list_size --;
+
+    return find;
+}
+
+template<typename T>
+void List<T>::remove_all(const T &val){
+
+    bool status = false;
+    do{
+        status = remove(val);
+    } while (status);
 }
 
 template<typename T>
