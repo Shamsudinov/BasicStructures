@@ -2,27 +2,44 @@
 #include <List.h>
 using namespace std;
 
+#include <vector>
+
 int main()
 {
-    cout << "Hello World!" << endl;
-    List<int> l;
-    for(int i=0; i<5; i++){
-        l.push_back(i);
-    }
 
-    l.push_back(3);
-    l.push_back(2);
-    l.push_back(3);
-    l.push_back(3);
-    l.push_back(2);
-    l.push_back(2);
-    l.print();
-    l.remove_all(2);
-//    for(int i=5; i<10; i++){
-//        l.push_front(i);
-//    }
-//    l.push_front(10);
-    std::cout << "list after remove 3 " << std::endl;
-    l.print();
-    return 0;
+        cout << "Hello World!" << endl;
+        List<int> l;
+        for(int i=0; i<5; i++){
+            l.push_back(i);
+        }
+        l.print();
+//        l.pop_back();
+//        l.pop_back();
+//        l.pop_back();
+//        l.pop_back();
+//        l.pop_back();
+//        l.pop_back();
+//        l.pop_back();
+//        l.pop_back();
+//        l.pop_back();
+
+        l.pop_front();
+        l.pop_front();
+        l.pop_front();
+        l.pop_front();
+        l.pop_front();
+        l.pop_front();
+        l.pop_front();
+        l.pop_front();
+        l.pop_front();
+        l.print();
+
+//        for(int i=0; i<5; i++){
+//            l.push_back(i);
+//        }
+//        l.print();
+
+
+
+        return 0;
 }

@@ -21,10 +21,13 @@ public:
 
     void push_back(const T&);
     void push_front(const T&);
+    void pop_back();
+    void pop_front();
 
     bool remove(const T&);
     void remove_all(const T&);
 
+    bool empty();
     type_size size() const;
     type_size max_size() const;
     void clear();
@@ -122,6 +125,46 @@ void List<T>::push_front(const T& value){
 }
 
 template<typename T>
+void List<T>::pop_back(){
+
+    if(empty()){
+        return;
+    }
+
+    if(list_size == 1){
+        delete head;
+        head = tail = nullptr;
+        list_size = 0;
+        return;
+    }
+
+    Node<T> *del = tail;
+    tail = tail->prev;
+    delete del;
+    list_size--;
+}
+
+template<typename T>
+void List<T>::pop_front(){
+
+    if(empty()){
+        return;
+    }
+
+    if(list_size == 1){
+        delete head;
+        head = tail = nullptr;
+        list_size = 0;
+        return;
+    }
+
+    Node<T> *del = head;
+    head = head->next;
+    delete del;
+    list_size--;
+}
+
+template<typename T>
 bool List<T>::remove(const T &val){
 
     Node<T> *del = head;
@@ -165,6 +208,14 @@ void List<T>::remove_all(const T &val){
     do{
         status = remove(val);
     } while (status);
+}
+
+template<typename T>
+bool List<T>::empty(){
+
+    if(head == nullptr && tail == nullptr && list_size == 0)
+        return true;
+    return false;
 }
 
 template<typename T>
